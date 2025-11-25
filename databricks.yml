@@ -8,6 +8,10 @@ targets:
     default: true
     workspace:
       root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/prod"
+artifacts:
+  unified_orders_code:
+    type: files
+    path: unified_orders
 resources:
   pipelines:
     unified_orders_dlt:
@@ -16,13 +20,12 @@ resources:
       development: false
       continuous: false
       libraries:
-        - notebook:
+        - file:
             path: unified_orders/transformations/SourceTables.py
-        - notebook:
+        - file:
             path: unified_orders/transformations/ST_Union.py
-        - notebook:
+        - file:
             path: unified_orders/transformations/OrdersStaging.py
-        - notebook:
+        - file:
             path: unified_orders/transformations/OrdersTable.py
-
 
