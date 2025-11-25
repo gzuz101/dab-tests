@@ -1,0 +1,31 @@
+name: Deploy & Run Unified Orders DLT (prod)
+on:
+  workflow_dispatch:   # manually trigger from GitHub Actions UI
+jobs:
+  deploy-run-prod:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout your repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      # 2. Install Databricks CLI
+      - name: Set up Databricks CLI
+        uses: databricks/setup-cli@v1
+      # 3. Validate and deploy the bundle
+      - name: Validate & Deploy Bundle
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          echo "Validating DAB bundle..."
+          databricks bundle validate -e prod
+          echo "Deploying DAB bundle..."
+          databricks bundle deploy -e prod
+      # 4. Run the DLT pipeline once after deploy
+      - name: Run the DLT pipeline once
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          echo "Running unified_orders_dlt pipeline..."
+          databricks bundle run unified_orders_dlt -e prod --refresh all
