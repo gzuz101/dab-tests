@@ -1,10 +1,18 @@
 bundle:
   name: unified_orders_dlt_bundle
+variables:
+  target_schema:
+    default: "`polywood-dev`.customer_silver"
+targets:
+  prod:
+    default: true
+    workspace:
+      root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/prod"
 resources:
   pipelines:
     unified_orders_dlt:
       name: unified_orders_dlt
-      target: ${var.target}
+      schema: ${var.target_schema}
       development: false
       continuous: false
       libraries:
@@ -16,3 +24,5 @@ resources:
             path: unified_orders/transformations/OrdersStaging.py
         - notebook:
             path: unified_orders/transformations/OrdersTable.py
+
+
