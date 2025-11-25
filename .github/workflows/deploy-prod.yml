@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4
       # 2. Install Databricks CLI
       - name: Set up Databricks CLI
-        uses: databricks/setup-cli@v1
+        uses: databricks/setup-cli@main
       # 3. Validate and deploy the bundle
       - name: Validate & Deploy Bundle
         env:
