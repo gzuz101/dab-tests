@@ -7,11 +7,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Debug: List repo root
+      - name: Debug List repo root
         run: |
           echo "==== LISTING ROOT FOLDER ===="
           ls -R .
-      - name: Debug: List config folder
+      - name: Debug List config folder
         run: |
           echo "==== LISTING CONFIG FOLDER ===="
           ls -R config || echo "Config folder not found"
