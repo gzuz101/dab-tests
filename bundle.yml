@@ -1,0 +1,18 @@
+bundle:
+  name: unified_orders_dlt_bundle
+resources:
+  pipelines:
+    unified_orders_dlt:
+      name: unified_orders_dlt
+      target: ${var.target}
+      development: false
+      continuous: false
+      libraries:
+        - notebook:
+            path: unified_orders/transformations/SourceTables.py
+        - notebook:
+            path: unified_orders/transformations/ST_Union.py
+        - notebook:
+            path: unified_orders/transformations/OrdersStaging.py
+        - notebook:
+            path: unified_orders/transformations/OrdersTable.py
