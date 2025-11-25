@@ -1,0 +1,38 @@
+name: Debug Repo Structure (prod)
+on:
+  workflow_dispatch:
+jobs:
+  debug-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Debug List repo root
+        run: |
+          echo "==== LISTING ROOT FOLDER ===="
+          ls -R .
+      - name: Debug List config folder
+        run: |
+          echo "==== LISTING CONFIG FOLDER ===="
+          ls -R config || echo "Config folder not found"
+      # -------------------------------
+      # ALL DEPLOY STEPS COMMENTED OUT
+      # -------------------------------
+      #
+      # - name: Set up Databricks CLI
+      #   uses: databricks/setup-cli@v0
+      #
+      # - name: Validate & Deploy Bundle
+      #   env:
+      #     DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      #     DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      #   run: |
+      #     databricks bundle validate --target prod
+      #     databricks bundle deploy --target prod
+      #
+      # - name: Run the DLT pipeline once
+      #   env:
+      #     DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      #     DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      #   run: |
+      #     databricks bundle run unified_orders_dlt --target prod --refresh all
