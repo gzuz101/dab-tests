@@ -2,4 +2,4 @@ workspace:
   root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/prod"
 
 vars:
-  target: "`polywood-dev`.customer_silver"
+  target: "production.customer_silver_dab"
