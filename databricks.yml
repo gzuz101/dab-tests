@@ -8,7 +8,7 @@ targets:
     default: true
     workspace:
       # Your repo clone location in Databricks Repos
-      root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/"
+      root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/prod"
 resources:
   ###############################################################
   # 1. DLT Pipeline Definition
