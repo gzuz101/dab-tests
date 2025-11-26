@@ -5,7 +5,7 @@
       "git": {
         "branch": "main",
         "origin_url": "https://github.com/gzuz101/dab-tests",
-        "commit": "7dd6623e94a944471a51df62d3ca97cd5a3cbc8e",
+        "commit": "bd5db2528d08954273b2b6ace154ce9adeee27a7",
         "bundle_root_path": "."
       }
     },
@@ -15,7 +15,7 @@
     "resources": {
       "pipelines": {
         "unified_orders_dlt": {
-          "id": "53034e0d-a689-441b-b747-08d901abf7b6",
+          "id": "53c7dc26-94c5-45eb-b5e7-14ca833f6bc6",
           "relative_path": "databricks.yml"
         }
       }
