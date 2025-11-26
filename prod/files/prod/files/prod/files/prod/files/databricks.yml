@@ -2,7 +2,7 @@ bundle:
   name: unified_orders_dlt_bundle
 variables:
   target_schema:
-    default: "customer_silver"
+    default: "`polywood-dev`.customer_silver"
 targets:
   prod:
     default: true
@@ -12,7 +12,6 @@ resources:
   pipelines:
     unified_orders_dlt:
       name: unified_orders_dlt
-      catalog: polywood-dev
       schema: ${var.target_schema}
       development: false
       continuous: false

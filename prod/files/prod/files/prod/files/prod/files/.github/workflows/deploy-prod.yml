@@ -28,4 +28,4 @@ jobs:
           DATABRICKS_TOKEN: ${{ secrets.DBX_TOKEN }}
         run: |
           echo "Running unified_orders_dlt pipeline..."
-          databricks bundle run unified_orders_dlt --target prod 
+          databricks bundle run unified_orders_dlt --target prod --refresh all
