@@ -30,8 +30,8 @@ jobs:
       ############################################################
       - name: Deploy DAB bundle
         env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.DBX_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DBX_TOKEN }}
         run: |
           echo "Deploying to Databricks..."
           databricks bundle deploy --target prod
