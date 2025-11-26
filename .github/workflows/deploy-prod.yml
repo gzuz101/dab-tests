@@ -35,14 +35,4 @@ jobs:
         run: |
           echo "Deploying to Databricks..."
           databricks bundle deploy --target prod
-      ############################################################
-      # 4. Run pipeline once after deployment
-      ############################################################
-      - name: Trigger a DLT pipeline run after deploy
-        env:
-          DATABRICKS_HOST: ${{ secrets.DBX_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DBX_TOKEN }}
-        run: |
-          echo "Running unified_orders_dlt pipeline once..."
-          databricks bundle run unified_orders_dlt --target prod
 
