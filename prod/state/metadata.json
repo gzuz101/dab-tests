@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "config": {
+    "bundle": {
+      "git": {
+        "branch": "main",
+        "origin_url": "https://github.com/gzuz101/dab-tests",
+        "commit": "ed9c8877c7d1c1596d0a93368e633a99bb3c292f",
+        "bundle_root_path": "."
+      }
+    },
+    "workspace": {
+      "file_path": "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/prod/files"
+    },
+    "resources": {
+      "pipelines": {
+        "unified_orders_dlt": {
+          "id": "bcbcdd6d-54e0-4b0a-b09d-4535e5ea1f9c",
+          "relative_path": "databricks.yml"
+        }
+      }
+    },
+    "presets": {
+      "source_linked_deployment": false
+    }
+  },
+  "extra": {}
+}

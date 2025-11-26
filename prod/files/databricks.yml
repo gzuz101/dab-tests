@@ -1,0 +1,52 @@
+bundle:
+  name: unified_orders_dlt_bundle
+variables:
+  target_schema:
+    default: "customer_silver"
+targets:
+  prod:
+    default: true
+    workspace:
+      # Your repo clone location in Databricks Repos
+      root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/prod"
+resources:
+  ###############################################################
+  # 1. DLT Pipeline Definition
+  ###############################################################
+  pipelines:
+    unified_orders_dlt:
+      name: unified_orders_dlt
+      catalog: polywood-dev
+      target: ${var.target_schema}
+      serverless: true
+      development: false
+      continuous: false
+      libraries:
+        - file:
+            path: unified_orders/transformations/SourceTables.py
+        - file:
+            path: unified_orders/transformations/ST_Union.py
+        - file:
+            path: unified_orders/transformations/OrdersStaging.py
+        - file:
+            path: unified_orders/transformations/OrdersTable.py
+  ###############################################################
+  # 2. Job to Run Pipeline Daily at 10 PM EST
+  ###############################################################
+  jobs:
+    unified_orders_dlt_daily_job:
+      name: "Unified Orders - Daily Refresh"
+      schedule:
+        quartz_cron_expression: "0 0 22 * * ?"
+        timezone_id: "America/New_York"
+      tasks:
+        - task_key: run_dlt_pipeline
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.unified_orders_dlt.id}
+          depends_on: []
+      # Optional but recommended
+      email_notifications:
+        on_failure:
+          - gaurav.m.sahu@v4c.ai
+      max_retries: 3
+      min_retry_interval_millis: 60000
