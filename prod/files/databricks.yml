@@ -8,7 +8,7 @@ targets:
     default: true
     workspace:
       # Your repo clone location in Databricks Repos
-      root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/prod"
+      root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/"
 resources:
   ###############################################################
   # 1. DLT Pipeline Definition
@@ -17,7 +17,7 @@ resources:
     unified_orders_dlt:
       name: unified_orders_dlt
       catalog: polywood-dev
-      target: ${var.target_schema}
+      schema: ${var.target_schema}
       serverless: true
       development: false
       continuous: false
@@ -43,10 +43,9 @@ resources:
         - task_key: run_dlt_pipeline
           pipeline_task:
             pipeline_id: ${resources.pipelines.unified_orders_dlt.id}
+          max_retries: 3
           depends_on: []
       # Optional but recommended
       email_notifications:
         on_failure:
           - gaurav.m.sahu@v4c.ai
-      max_retries: 3
-      min_retry_interval_millis: 60000
