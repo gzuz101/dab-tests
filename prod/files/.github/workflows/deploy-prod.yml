@@ -2,19 +2,20 @@ name: Deploy to Databricks (Prod)
 on:
   push:
     branches:
-      - main       
+      - main        # <-- Auto deploy when merged to main
+  workflow_dispatch:  # <-- Allows manual trigger
 jobs:
   deploy-prod:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      ###################################################################
+      ############################################################
       # 1. Install Databricks CLI (v0.220+)
       ############################################################
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
-      #################################################################
+      ############################################################
       # 2. Validate the Bundle
       ############################################################
       - name: Validate DAB bundle
@@ -24,7 +25,7 @@ jobs:
         run: |
           echo "Validating DAB bundle..."
           databricks bundle validate --target prod
-      ######################################################################
+      ############################################################
       # 3. Deploy the Bundle (pipeline + job)
       ############################################################
       - name: Deploy DAB bundle

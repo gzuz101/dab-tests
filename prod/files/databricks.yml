@@ -7,6 +7,7 @@ targets:
   prod:
     default: true
     workspace:
+      # Your repo clone location in Databricks Repos
       root_path: "/Workspace/Repos/gaurav.m.sahu@v4c.ai/dab-tests/prod"
 resources:
   ###############################################################
@@ -44,6 +45,7 @@ resources:
             pipeline_id: ${resources.pipelines.unified_orders_dlt.id}
           max_retries: 3
           depends_on: []
+      # Optional but recommended
       email_notifications:
         on_failure:
           - gaurav.m.sahu@v4c.ai
