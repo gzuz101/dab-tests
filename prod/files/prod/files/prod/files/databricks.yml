@@ -2,7 +2,7 @@ bundle:
   name: unified_orders_dlt_bundle
 variables:
   target_schema:
-    default: "polywood-dev.customer_silver"
+    default: "production.customer_silver_dab"
 targets:
   prod:
     default: true

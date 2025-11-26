@@ -14,6 +14,7 @@ resources:
       name: unified_orders_dlt
       catalog: polywood-dev
       schema: ${var.target_schema}
+      serverless: true
       development: false
       continuous: false
       libraries:
