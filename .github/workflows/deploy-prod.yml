@@ -1,31 +1,48 @@
-name: Deploy & Run Unified Orders DLT (prod)
+name: Deploy to Databricks (Prod)
 on:
-  workflow_dispatch:   # allows manual trigger
+  push:
+    branches:
+      - main        # <-- Auto deploy when merged to main
+  workflow_dispatch:  # <-- Allows manual trigger
 jobs:
-  deploy-run-prod:
+  deploy-prod:
     runs-on: ubuntu-latest
     steps:
-      # 1. Checkout your repository code
       - name: Checkout repository
         uses: actions/checkout@v4
-      # 2. Install Databricks CLI (official action)
-      - name: Set up Databricks CLI
+      ############################################################
+      # 1. Install Databricks CLI (v0.220+)
+      ############################################################
+      - name: Install Databricks CLI
         uses: databricks/setup-cli@main
-      # 3. Validate and deploy bundle
-      - name: Validate & Deploy Bundle
+      ############################################################
+      # 2. Validate the Bundle
+      ############################################################
+      - name: Validate DAB bundle
         env:
-          DATABRICKS_HOST: ${{ secrets.DBX_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DBX_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
           echo "Validating DAB bundle..."
           databricks bundle validate --target prod
-          echo "Deploying DAB bundle..."
-          databricks bundle deploy --target prod
-      # 4. Run the DLT pipeline once right after deployment
-      - name: Run the DLT pipeline once
+      ############################################################
+      # 3. Deploy the Bundle (pipeline + job)
+      ############################################################
+      - name: Deploy DAB bundle
         env:
-          DATABRICKS_HOST: ${{ secrets.DBX_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DBX_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-          echo "Running unified_orders_dlt pipeline..."
-          databricks bundle run unified_orders_dlt --target prod 
+          echo "Deploying to Databricks..."
+          databricks bundle deploy --target prod
+      ############################################################
+      # 4. Run pipeline once after deployment
+      ############################################################
+      - name: Trigger a DLT pipeline run after deploy
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          echo "Running unified_orders_dlt pipeline once..."
+          databricks bundle run unified_orders_dlt --target prod
+
