@@ -10,7 +10,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       ###################################################################
-      # 1. Install Databricks CLI (v0.220+)
+      # 1. Install Databricks CLI 
       ############################################################
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
